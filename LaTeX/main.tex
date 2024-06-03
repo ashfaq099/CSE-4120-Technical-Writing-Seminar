@@ -1,0 +1,488 @@
+\documentclass[12]{article}
+\usepackage[english]{babel}
+\usepackage{natbib}
+\usepackage{url}
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage{tikz}
+\usetikzlibrary{arrows}
+\usetikzlibrary{shapes}
+%%\documentclass[conference]{article}
+%\usepackage{cite}
+%%\usepackage[utf8]{inputenc}
+
+\usepackage[utf8x]{inputenc}
+\usepackage{amsmath}
+\usepackage{graphicx}
+\graphicspath{{images/}}
+\usepackage{parskip}
+\usepackage{fancyhdr}
+\usepackage{vmargin}
+\usepackage{caption} 
+\usepackage{float}
+\captionsetup[table]{skip=10pt}
+\setmarginsrb{3 cm}{2.5 cm}{3 cm}{2.5 cm}{1 cm}{1.5 cm}{1 cm}{1.5 cm}
+\makeatletter
+\let\thetitle\hi
+
+\let\thedate\@date
+\makeatother
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{\theauthor}
+\lhead{\thetitle}
+\cfoot{\thepage}
+
+\begin{document}
+\tikzstyle{line} = [draw, thick , -latex]
+
+\tikzstyle{process} = [draw, rectangle, minimum height = 1 cm, minimum width = 4cm, fill = blue!40, text centered, text width = 3cm]
+\tikzstyle{decision} = [draw,circle , fill = black!35, minimum height = .01 cm , minimum width = .01 cm, text centered ]
+
+\begin{titlepage}
+    \large
+    \centering
+    \textbf{Course Code: CSE-4120} \par
+    \large
+    \large
+    \textbf{Course Title: Technical Writing and Seminar} \par
+    \large
+    \centering
+    \vspace*{0.5in}
+    {\Huge \textbf{Breast Cancer Detection} \par}
+    \vspace{0.4in}
+    {\large
+    \textbf{Submitted By}}
+    \vspace{0.4in}
+    {\large 
+    
+        \textbf{Md. Ashfaqur Rahman} \par
+        Roll: 1907099 \par
+        Department of Computer Science and Engineering \par
+        Khulna University of Engineering \& Technology \par
+    }
+    
+      \large
+    \textbf{Supervised by:} \par
+    \vspace{0.1in}
+   \textbf{ Dr. K. M. Azharul Hasan} \par
+    Professor, Department of Computer Science and Engineering \par
+    Khulna University of Engineering \& Technology \par
+    \vspace{0.1in}
+   \textbf{ Sunanda Das} \par
+    Assistant Professor, Department of Computer Science and Engineering \par
+     Khulna University of Engineering \& Technology \par
+     \vspace{0.4in}
+     \textbf{Date of Submission: 03-06-2024}
+
+    
+\end{titlepage}
+
+\tableofcontents
+\pagebreak
+\section{Abstract}
+Breast cancer is the leading cause of cancer-related death in women worldwide, demanding early detection and correct diagnosis to improve patient outcomes. This article explores three key research that use advanced deep learning algorithms to automatically detect and classify breast cancer in mammographic pictures.The first paper offers a deep-learning model that uses transfer-learning techniques with pre-trained CNNs like VGG16 and achieves 98.96\% accuracy on the MIAS dataset. The second study uses the EfficientNet architecture on the CBIS-DDSM dataset and achieves an accuracy of 0.75 and an AUC of 0.83, demonstrating its efficiency and precision. The third paper introduces an end-to-end trainable model for whole-image classification that successfully identifies malignant lesions and demonstrates clinical use.These studies proved the potential to accurately detect breast cancer using deep learning models.
+
+\section{Introduction}
+Breast cancer is an important public health issue and the most common and deadliest cancer in women worldwide. According to the World Health Organization (WHO), it accounts for about 24.2\% of all new cancer cases in women, emphasizing the urgent need for effective diagnostic and therapeutic strategies if they are to give a chance there is an emphasis on successful treatment and significantly increased survival at early detection. Mammography, an X-ray imaging technique, is the mainstay of early detection of breast cancer, but may be less effective due to factors such as the patient’s age, dense breasts and benign lesions .
+\newline
+Recent advances in computer vision and machine learning have led to the development of computer-aided design (CAD) systems. These programs use sophisticated algorithms to analyze breast images and identify areas of potential cancer, with the goal of improving diagnostic accuracy and reducing human error While combined with deep learning techniques, especially convolutional neural networks (CNNs), CNNs have shown great promise in medical imaging tasks including breast cancer detection This has excellent feature recognition and image classification on the surface, making them suitable for analyzing complex medical images.
+\newline
+This report reviews three major studies investigating deep breast cancer learning methods for breast cancer detection and classification using breast images. The first study presents new models using transfer learning using pre-trained CNN architectures such as Inception V3, ResNet50, VGG-19, VGG-16, and Inception-V2 ResNet, which improve the accuracy of a it is impressive on the MIAS dataset .The second study focuses on the EfficientNet architecture, which emphasizes efficient scaling of neural networks, demonstrating substantial accuracy and AUC values on the CBIS-DDSM dataset. The third study introduces an end-to-end trainable model using an all-convolutional design for whole image classification, addressing the challenges of accurate feature extraction and classification.
+\newline
+Collectively, these studies highlight the  impact of deep learning and advanced neural network architectures in improving breast cancer diagnosis. They highlight the potential for developing more reliable CAD systems, essential for timely and accurate breast cancer screening, ultimately improving patient outcomes and survival rates.
+
+\section{Background}
+Breast cancer is a major health issue, accounting for a significant proportion of cancer-related mortality among women worldwide. Despite advances in medical imaging technology, early detection of breast cancer remains difficult. Mammography is a great screening tool, especially in patients with thickened breast tissue, which can mask tumors .But it  has limitations in distinguishing benign from malignant lesions . These complications require reliable and accurate methods of lesion detection.The three studies collectively address the critical challenges in breast cancer detection through innovative deep learning approaches.The first paper  uses transfer learning using pre-trained CNNs to overcome data limitations and improve diagnostic performance.\cite{9427477}The second paper increases the efficiency and accuracy of the model through EfficientNet architecture.\cite{10151156}The third paper simplifies and improves full image classification through end-to-end convolutional model,\cite{shen2019deep} and  These advances underscore the potential of deep learning to transform breast cancer diagnosis, leading to reliable and accurate screening methods that can ultimately improve patient outcomes and survival rates.
+
+\section{Review of literature}
+Together, the reviewed studies improve breast cancer detection by introducing new architectures and techniques and using deep learning. These studies increases the capacity for early detection, which is increasingly important and ultimately patient outcomes are survival is improved.
+\newline
+Ting et al\cite{ting2019convolutional} implemented a deep CNN for BC-lesion classification. This network consisted of 1 input layer, 28 hidden layer, and 1 output layer. Overfitting was avoided using the feature-wise-data augmentation (FWDA) algorithm. Their proposed method sequentially achieved 89.47\%, 90.50\%,
+and 90.71\% for sensitivity, accuracy, and specificity, respectively. Toğçar et al.\cite{tougaccar2020breastnet}  proposed the BreastNet, which consisted of convolutional, pooling, residual, and dense blocks,
+and it was capable of extracting the most effective features
+from breast images. BreastNet achieved better results than
+AlexNet, VGG-16, and VGG-19 models as its accuracy
+approached 98.80\%.Abbas \cite{abbas2016deepcad} presented a multi-layer DL architecture for classifying benign and malignant regions in
+breast images. This network consisted of four phases for
+extracting invariant features, which were transformed into
+deep-invariant features, and learning features for making
+the final decision. In this study, the MIAS dataset was used and
+achieved a 92\%, 84.2\%, 91.5\%, and 0.91 for sensitivity,
+specificity, accuracy, and AUC, respectively.Using the same
+dataset, Sha et al.\cite{8} presented a method for automatic
+detection and classification of the cancerous region in breast
+images. Their proposed method was based on CNNs and the
+grasshopper optimization algorithm. The results showed that
+this proposed method was capable of achieving 96\%, 93\%,
+and 92\% for sensitivity, specificity, and accuracy, respectively.Lotter et al. \cite{lotter2021robust}
+proposed a model in which the features were extracted using
+a pre-trained ResNet50 network. Their model was capable
+of classifying lesions into five classes: mass, calcifications,
+focal asymmetry, architectural distortion, or no lesion. Their
+model achieved 96.2, 90.9, and 0.94 for sensitivity, specificity, and AUC, respectively. Khan et al.\cite{khan2019novel} implemented a model in which the
+breast-image features were extracted using pre-trained CNN
+architectures, namely, GoogleNet, VGGNet, and ResNet. The
+model’s accuracy, which approached 97.525\%, was evaluated
+using a standard benchmark dataset.
+\newline
+Araujo et al.\cite{araujo2017classification} used convolutional neural networks to classify ´
+pathological images of breast cancer into cancer and noncancer categories, achieving a recognition rate of up to 88.3\%.
+When it is further divided into four categories: normal tissue,
+benign lesion, carcinoma in situ and invasive carcinoma, the
+highest overall accuracy rate is 77.8\%. Su et al.\cite{su2022yolo}proposed
+a double-shot model with combined Yolo(You Only Look
+Once) and Local-Global architectures to achieve true positive rate 95.7\% and mean average precision 65.0\% for
+mass detection on CBIS-DDSM dataset .
+\newline
+Hinton et al \cite{hinton2006fast}used layer-wise pre-training to initialize 
+the weight parameters of a deep belief net (DBN) with three hidden layers and then fine-tuned it for classification. 
+Tey found that pre-training improved the training speed as well as the accuracy of handwritten digit recognition. Another popular training method is to first train a deep learning model on a large database such as the 
+ImageNet \cite{russakovsky2015imagenet} and then fine-tune the model for another task. Although the specific task may not be related to the 
+initial training dataset, the model’s weight parameters are already initialized for recognizing primitive features, 
+such as edges, corners and textures, which can be readily used for a different task. 
+
+
+\section{Methodology}
+
+
+
+The methodology of the Paper-01 detailed in the provided document "A Novel Deep-Learning Model for Automatic Detection and Classification of Breast Cancer Using the Transfer-Learning Technique" involves several key steps. Below is a detailed explanation of each step:
+\subsection{Paper 01}
+\subsubsection{Data Collection and Preprocessing}
+
+\textbf{Data Collection:}
+\begin{itemize}
+    \item The study uses the Mammographic Image Analysis Society (MIAS) dataset, which is split into 80\% training set and 20\% testing set.
+\end{itemize}
+
+\textbf{Preprocessing:}
+\begin{itemize}
+    \item The breast images are resized and converted to RGB format to match the input size of the pretrained CNN architectures.
+    \item Segmentation is performed to focus the analysis on the regions mostly affected by cancer, using a threshold-based method for automatic patch extraction.
+\end{itemize}
+
+\subsubsection{Data Augmentation}
+
+To overcome the problem of overfitting due to a small dataset, the study employs data augmentation techniques:
+\begin{itemize}
+    \item Each segmented image is rotated clockwise by 90°, 180°, 270°, and 360°.
+    \item Each rotated image is then flipped vertically, resulting in eight images from a single input image.
+\end{itemize}
+
+\textbf{Algorithm for Data Augmentation:}
+\begin{enumerate}
+    \item Rotate benign, malignant, and normal segmented images by 0°, 90°, 180°, and 270°.
+    \item Flip each rotated image vertically.
+    \item Repeat steps 1 and 2 for all training data.
+\end{enumerate}
+
+\subsubsection{Deep Convolutional Neural Network (CNN) Training Based on Transfer Learning (TL)}
+
+The study uses multiple pretrained networks for feature extraction, including Inception V3, ResNet50, VGG19, VGG16, and Inception-V2 ResNet, which are originally trained on the ImageNet dataset.
+
+\textbf{Transfer Learning Process:}
+\begin{itemize}
+    \item The pretrained network layers, except for the last three fully connected layers, softmax layer, and classification layer, are frozen and transferred to the target task (BC classification).
+    \item The extracted patches from the preprocessing step are used to continue the network training.
+    \item New dense layers are added and trained while combining with the already-trained layers from the pretrained network.
+    \item Fine-tuning is conducted using the Stochastic Gradient Descent method with momentum (SGDM), which helps increase training velocity and reduces high-velocity dimensions due to gradient jittering.
+\end{itemize}
+
+\subsubsection{Classifier Training}
+
+The extracted features are used to train classifiers, including Support Vector Machine (SVM) and Softmax classifiers, to perform the final classification task of breast cancer detection.
+
+\subsubsection{Cross-Validation}
+
+To further enhance model robustness and address overfitting:
+\begin{itemize}
+    \item The study employs a 10-fold cross-validation technique. The dataset is partitioned into k folds, where k-1 folds are used for training and the remaining fold is used for testing. This process is repeated k times, and the final result is the average of these rounds.
+\end{itemize}
+\begin{figure}[hbt!]
+    \centering
+    \includegraphics[
+        height=10cm,
+        width=15cm,
+        ]{Images/Transfer Learning.PNG}
+    \caption{Transferring CNN Features}
+    \label{diagram1}
+\end{figure}
+The methodology of Paper-01 can be shown as below flowchart
+\begin{figure}[hbt!]
+    \centering
+    \includegraphics[
+        height=10cm,
+        width=17cm;
+        ]{Images/flow1.PNG}
+    \caption{Flow Chart of the proposed model (Paper[1])}
+    \label{diagram2}
+\end{figure}
+
+\subsection{Paper-02}
+The methodology of Paper-02 follows a approach to developing and evaluating a deep learning-based model for breast cancer detection using mammography images. Here's a detailed breakdown of the methodology:
+\subsubsection{Mammogram Dataset}
+
+The study uses the \textbf{CBIS-DDSM dataset} (Cancer Imaging Archive Digital Database for Screening Mammography). This dataset is widely recognized in the research community for CAD (computer-aided detection) in breast cancer. It includes:
+\begin{itemize}
+    \item X-ray mammography images.
+    \item Corresponding clinical information.
+    \item Annotations of breast abnormalities, including location, size, and type of lesions.
+\end{itemize}
+
+\subsubsection{Data Processing}
+
+Data processing involves several steps to prepare the images for model training:
+\begin{enumerate}
+    \item \textbf{Conversion from DICOM to PNG}:
+    \begin{itemize}
+        \item {Reading DICOM Images}: Using a DICOM reader to convert the binary data of the DICOM images into a digital format.
+        \item {Normalizing Image Intensity}: Ensuring consistent brightness and contrast across all images.
+        \item {Conversion to PNG Format}: The images are converted to PNG format, making them compatible with image processing algorithms and manual inspection.
+    \end{itemize}
+\end{enumerate}
+
+\subsubsection{Dataset Splitting}
+
+The dataset is divided into training and validation sets using the \textbf{GroupKFold} method. This method ensures that images from the same patient do not appear in both training and validation sets, which helps in:
+\begin{itemize}
+    \item Evaluating the model's performance on unseen data.
+    \item Ensuring the model's ability to generalize to new patients.
+\end{itemize}
+
+\subsubsection{Model Architecture}
+
+The study employs the \textbf{EfficientNet architecture} for the deep learning model. EfficientNet is chosen for its balance of accuracy and efficiency, and the study explores different versions of this architecture. Key aspects include:
+\begin{itemize}
+    \item {Transfer Learning}: Pre-trained EfficientNet models are fine-tuned on the mammography dataset to improve performance.
+    \item {Early Stopping}: This technique is used to prevent overfitting and improve the generalization performance of the models.
+\end{itemize}
+
+\subsubsection{Model Evaluation}
+
+The performance of the model is evaluated using metrics such as:
+\begin{itemize}
+    \item \textbf{Accuracy}: The proportion of correctly identified cases out of the total cases.
+    \item \textbf{AUC (Area Under the Curve)}: Measures the ability of the model to distinguish between classes.
+\end{itemize}
+
+\subsubsection{Implementation Details}
+
+Additional implementation details include:
+\begin{itemize}
+    \item {Training Details}: Parameters such as learning rate, batch size, and number of epochs are optimized for the best performance.
+    \item {Hardware and Software}: The models are trained using high-performance computing resources, and software frameworks like PyTorch are used for implementation.
+\end{itemize}
+
+
+In summary, the methodology involves using a well-known dataset, thorough data preprocessing, strategic dataset splitting, leveraging state-of-the-art deep learning architectures with transfer learning, and robust evaluation metrics to ensure the development of an effective CAD system for breast cancer detection.
+\newline
+The methodology can be show as flowchart below-
+\begin{figure}[hbt!]
+    \centering
+    \includegraphics[
+        height=10cm,
+        width=17cm;
+        ]{Images/flow2.PNG}
+    \caption{Flow Chart of the proposed model (Paper[2])}
+    \label{diagram3}
+\end{figure}
+
+\subsection{Paper-03}
+The Paper-03 follows a approach to deep learning models trained in an end-to-end fashion can be highly accurate and potentially transferable across different mammography platforms.The detailed methodology is here-
+
+\subsubsection{Data Source}
+
+\begin{enumerate}
+    \item \textbf{Training Data:} Large public digitized film mammography database.
+    \item \textbf{Testing Data:} Smaller public full-field digital mammography (FFDM) database.
+\end{enumerate}
+
+\subsubsection{Data Processing}
+
+Images are downsized to fit GPU memory, retaining essential details.
+
+\subsubsection{Training Approach}
+
+\begin{enumerate}
+    \item \textbf{Patch Classifier Pre-training:} For classification of local image patches accurately. Utilizes a fully annotated dataset with detailed Region of Interest (ROI) information.
+    \begin{enumerate}
+        \item Extracts local image patches from the mammography images.
+        \item Trains a model specifically on these patches to learn detailed features associated with cancerous regions.
+    \end{enumerate}
+    \item \textbf{Whole Image Classifier Training:}
+    \begin{enumerate}
+        \item \textbf{Initialization:} Uses the weights from the pre-trained patch classifier to initialize the whole image classifier.
+        \item \textbf{Fine-tuning:} The whole image classifier is then fine-tuned using larger datasets labeled only with overall cancer status, without specific ROI annotations. This process allows the classifier to generalize from detailed patch-level information to making decisions based on entire images.
+    \end{enumerate}
+    \item \textbf{End-to-End Approach:}
+    \begin{enumerate}
+        \item Start with a dataset having detailed annotations (ROI) to train a highly specialized patch classifier.
+        \item Transition to using this specialized knowledge to train on whole images with only overall cancer status labels.
+    \end{enumerate}
+\end{enumerate}
+
+\subsubsection{Model Architecture}
+
+Combines VGG16 and Resnet50 for improved performance.
+
+\subsubsection{Transfer Learning}
+
+\begin{enumerate}
+    \item Adapts model from digitized film mammography to FFDM.
+    \item Shows that minimum data required to fine-tune the whole image classifier, demonstrating that satisfactory performance can be achieved with a relatively small dataset.
+\end{enumerate}
+
+\newpage
+The methodology can be show as flowchart below-
+\begin{figure}[hbt!]
+    \centering
+    \includegraphics[
+        height=10cm,
+        width=17cm;
+        ]{Images/flow3.PNG}
+    \caption{Flow Chart of the proposed model (Paper[3])}
+    \label{diagram4}
+\end{figure}
+
+\section{Result Analysis}
+
+
+
+
+\begin{table}[!ht]
+\centering
+\caption{Result Analysis}
+\label{tab:Performance Metrics}
+\begin{tabular}{||p{2.5cm}|p{4cm}|p{3cm}|p{2cm}||}
+\hline
+\textbf{Aspect} & \textbf{Paper-01} & \textbf{Paper-02} & \textbf{Paper-03} \\ 
+\hline\hline
+Performance Metrics
+ & Accuracy: 98.96\% , Sensitivity: 97.83\%, Specificity: 99.13\% , Precision: 97.35\% , F-score: 97.66\% ,AUC: 0.995
+
+ & EfficientNet achieved an AUC of 0.92, indicating high performance in distinguishing between malignant and benign cases.
+
+ & CBIS-DDSM: Best single model AUC: 0.88, Four-model averaging AUC: 0.91, Sensitivity: 86.1\%, Specificity: 80.1\% , INbreast: Best single model AUC: 0.95, Four-model averaging AUC: 0.98, Sensitivity: 86.7\%, Specificity: 96.1\%
+\\ 
+\hline
+Strengths
+
+ & Utilizes pre-trained models to leverage existing knowledge, improving performance with limited training data.
+
+ & Efficient optimization and learning rate scheduling methods lead to faster convergence and better generalization
+ & Uses multiple models together and improved predictions to increase accuracy and reliability.
+ \\ 
+\hline
+ Weaknesses
+
+& Potentially limited by the scope of the pre-trained model's original dataset, may not capture all nuances of mammography images.
+
+& May require fine-tuning of learning rate schedules and weight decay parameters for optimal performance in specific datasets.
+
+ & Patch classifiers may struggle with smaller patch sets and exhibit variability in patch vs. image-level classification performance.
+\\ 
+\hline
+\end{tabular}
+\end{table}
+
+\newpage
+
+\section{Findings}
+The Key Findings of the papers are here-
+\subsection{Paper 1}
+\begin{enumerate}
+    \item The study proposed a novel deep learning model utilizing transfer learning to classify breast cancer into benign, malignant, and normal categories.
+    \item The model achieved superior results compared to existing models, with the VGG16 architecture ranking first in accuracy, specificity, precision, and AUC for most classes after preprocessing and data augmentation.
+\end{enumerate}
+
+\subsection{Paper 2}
+\begin{enumerate}
+    \item The research evaluated five different versions of the EfficientNet architecture for breast cancer detection, showing that performance generally improved with model complexity.
+    \item EfficientNet b5 achieved the highest AUC and accuracy, but the performance gain was not always proportional to the increase in model complexity.
+\end{enumerate}
+
+\subsection{Paper 3}
+\begin{enumerate}
+    \item The study demonstrated that deep learning models trained in an end-to-end fashion can be highly accurate and potentially transferable across different mammography platforms.
+    \item The models showed promise in improving breast cancer detection accuracy.
+\end{enumerate}
+
+\section{Recommended}
+The recommended method to detect breast cancer is Paper-01 -A Novel Deep-Learning Model for Automatic Detection and Classification of Breast Cancer Using the Transfer-Learning Technique.
+\subsection{Reasons for Recommendation}
+\begin{enumerate}
+    \item This appears to be the best choice because this paper provides the highest accuracy in detecting breast cancer.
+    \item High accuracy ensures that a large proportion of the diagnoses made by the model are correct, which is essential for clinical settings. Inaccurate diagnoses can lead to mismanagement of the patient's condition, including unnecessary treatments or missed diagnoses.
+\end{enumerate}
+
+
+\section{Addressing Course outcomes and program outcomes}
+\subsection{PO2: Problem Analysis}
+This report identifies and analyzes the complex problems to detect breast cancer such as limited dataset size,dependence on pre-trained models,potential generalization issues,data integration challenges.It discusses the methods employed in three research publications and cites literature to support its results.
+
+\subsection{PO8: Ethics}
+By correctly crediting prior research and appropriately acknowledging sources, the publication complies with ethical guidelines. It shows a dedication to professional ethics by avoiding plagiarism and presenting findings objectively.
+
+\subsection{PO9: Individual and Teamwork}
+The  document was produced individually. It shows  the ability to function effectively as an individual in the context of technical writing and seminar.
+
+\subsection{PO10: Communication}
+The document clearly communicates complicated engineering principles about breast cancer detection. It thoroughly examines the techniques and results of three research publications, indicating the  capacity to analyze information properly. Furthermore, the precise arrangement, use of figures and brief writing style help to communicate effectively with the engineering community and the general public.
+
+\section{Addressing Complex Engineering Activities}
+
+\subsection{Range of resources (A1):} 
+The  preparation of the seminar writing for three breast cancer detction papers utilizes  a variety of resources to achieve its goals. This included online databases and libraries for research papers, citation tools for proper referencing, and software for creating presentations and reports (including LaTeX for the report itself).
+
+\subsection{Level of interaction (A2):} 
+The document presents a comparative analysis of three technical articles, each with slightly different techniques and findings. This required resolving conflicts and disagreements between the techniques, conclusions, and implications of the studies.
+
+\subsection{Innovation (A3):} 
+The document utilized LaTeX, an advanced typesetting system, to format the report in an efficient and professional manner, which ensures proficiency with advanced documentation tools. 
+
+\subsection{Familiarity (A5):} 
+While creating this document, the author had to learn LaTeX and its accompanying packages from scratch. This unfamiliar territory turned into a valuable learning experience, equipping the author with new skills.
+
+
+  
+\section{Conclusion}
+Early-stage cancers can be difficult to detect due to their small size and subtle appearance on mammograms.High rates of false positives lead to misdiagnosis.
+Deep learning models, particularly convolutional neural networks (CNNs), have showed potential in improving breast cancer diagnosis by learning from massive datasets and recognizing patterns that may not be obvious to the human eye.
+By addressing current challenges and focusing on key performance metrics, these models can significantly improve diagnostic accuracy, consistency, and early detection, ultimately leading to better patient care and outcomes. 
+
+\addcontentsline{toc}{section}{References}
+\bibliographystyle{IEEEtran}
+\bibliography{references.bib}
+\section{ Publication Details}
+\begin{table}[!ht]
+\centering
+\caption{List of Articles with Details}
+\label{tab:result_analysis}
+\begin{tabular}{||p{2.5cm}|p{4cm}|p{3cm}|p{2cm}||}
+\hline
+\textbf{Title} & \textbf{Authors} & \textbf{Source} & \textbf{Year} \\ 
+\hline\hline
+A Novel Deep-Learning Model for Automatic Detection and Classification of Breast Cancer
+Using the Transfer-Learning Technique
+ & Abeer Saber,Mohamed sakr,Osama M.Abo-Seida,Arabi Keshk,HuilingChen
+ & IEEE Access vol. 9, pp. 71194-71209
+ & 2021 \\ 
+\hline
+Efficient Net-Based Deep Learning Approach for
+Breast Cancer Detection With Mammography Images
+ & Shi Gengtian, Bai Bing, Zhang Guoyou
+ & The 8th International Conference on Computer and Communication Systems
+ & 2023 \\ 
+\hline
+ Deep Learning to Improve Breast 
+Cancer Detection on Screening 
+Mammography
+& Li Shen, Laurie R. Margolies, Joseph H. Rothstein, Eugene Fluder, Russell
+McBride,Weiva Sieh& Scientific Reports volume 9, Article number: 12495
+ & 2019 \\ 
+\hline
+\end{tabular}
+\end{table}
+\end{document}
